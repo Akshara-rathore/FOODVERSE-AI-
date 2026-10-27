@@ -1,0 +1,273 @@
+"""USDA and standard food nutrition reference dataset.
+Provides accurate reference values for standard foods (per 100g or standard serving).
+Used for offline lookup, baseline calibration, and verified nutritional calculations.
+"""
+
+from typing import Optional, Dict, Any, List
+
+USDA_REFERENCE_DATABASE: Dict[str, Dict[str, Any]] = {
+    "apple": {
+        "food_name": "Fresh Apple",
+        "category": "Fruits",
+        "serving_size": "1 medium (182g)",
+        "calories": 95.0,
+        "protein": 0.5,
+        "carbs": 25.1,
+        "fat": 0.3,
+        "fiber": 4.4,
+        "sugar": 18.9,
+        "sodium_mg": 1.8,
+        "health_score": 92,
+        "dietary_attributes": ["vegan", "vegetarian", "gluten-free", "low-fat", "high-fiber"],
+        "micronutrients": {"vitamin_c": "8.4mg (14% DV)", "potassium": "195mg (6% DV)", "calcium": "10.9mg", "iron": "0.22mg"}
+    },
+    "banana": {
+        "food_name": "Ripe Banana",
+        "category": "Fruits",
+        "serving_size": "1 medium (118g)",
+        "calories": 105.0,
+        "protein": 1.3,
+        "carbs": 27.0,
+        "fat": 0.3,
+        "fiber": 3.1,
+        "sugar": 14.4,
+        "sodium_mg": 1.2,
+        "health_score": 88,
+        "dietary_attributes": ["vegan", "vegetarian", "gluten-free", "high-potassium"],
+        "micronutrients": {"potassium": "422mg (12% DV)", "vitamin_b6": "0.43mg (25% DV)", "vitamin_c": "10.3mg", "magnesium": "31.9mg"}
+    },
+    "orange": {
+        "food_name": "Navel Orange",
+        "category": "Fruits",
+        "serving_size": "1 medium (140g)",
+        "calories": 69.0,
+        "protein": 1.3,
+        "carbs": 17.6,
+        "fat": 0.2,
+        "fiber": 3.1,
+        "sugar": 11.9,
+        "sodium_mg": 0.0,
+        "health_score": 94,
+        "dietary_attributes": ["vegan", "vegetarian", "gluten-free", "high-vitamin-c"],
+        "micronutrients": {"vitamin_c": "82.7mg (92% DV)", "folate": "40mcg", "calcium": "52mg", "potassium": "232mg"}
+    },
+    "strawberry": {
+        "food_name": "Fresh Strawberries",
+        "category": "Fruits",
+        "serving_size": "1 cup whole (144g)",
+        "calories": 46.0,
+        "protein": 1.0,
+        "carbs": 11.1,
+        "fat": 0.4,
+        "fiber": 2.9,
+        "sugar": 7.1,
+        "sodium_mg": 1.4,
+        "health_score": 96,
+        "dietary_attributes": ["vegan", "vegetarian", "gluten-free", "low-calorie", "antioxidant-rich"],
+        "micronutrients": {"vitamin_c": "84.7mg (94% DV)", "manganese": "0.6mg (28% DV)", "folate": "35mcg"}
+    },
+    "avocado": {
+        "food_name": "Hass Avocado",
+        "category": "Fruits",
+        "serving_size": "1/2 medium (100g)",
+        "calories": 160.0,
+        "protein": 2.0,
+        "carbs": 8.5,
+        "fat": 14.7,
+        "fiber": 6.7,
+        "sugar": 0.7,
+        "sodium_mg": 7.0,
+        "health_score": 90,
+        "dietary_attributes": ["vegan", "vegetarian", "keto", "gluten-free", "heart-healthy-fats"],
+        "micronutrients": {"potassium": "485mg (14% DV)", "folate": "81mcg", "vitamin_k": "21mcg", "vitamin_e": "2.1mg"}
+    },
+    "chicken breast": {
+        "food_name": "Grilled Chicken Breast",
+        "category": "Poultry & Meat",
+        "serving_size": "1 breast (172g)",
+        "calories": 284.0,
+        "protein": 53.4,
+        "carbs": 0.0,
+        "fat": 6.2,
+        "fiber": 0.0,
+        "sugar": 0.0,
+        "sodium_mg": 127.0,
+        "health_score": 92,
+        "dietary_attributes": ["high-protein", "keto", "gluten-free", "low-carb"],
+        "micronutrients": {"niacin": "23.6mg (148% DV)", "vitamin_b6": "1.0mg (60% DV)", "phosphorus": "391mg", "selenium": "47mcg"}
+    },
+    "salmon": {
+        "food_name": "Atlantic Salmon (Baked/Grilled)",
+        "category": "Seafood",
+        "serving_size": "1 fillet (178g)",
+        "calories": 367.0,
+        "protein": 39.3,
+        "carbs": 0.0,
+        "fat": 21.8,
+        "fiber": 0.0,
+        "sugar": 0.0,
+        "sodium_mg": 109.0,
+        "health_score": 95,
+        "dietary_attributes": ["high-protein", "omega-3-rich", "keto", "gluten-free"],
+        "micronutrients": {"vitamin_d": "988 IU (124% DV)", "vitamin_b12": "5.7mcg (238% DV)", "omega_3_dha_epa": "2.1g"}
+    },
+    "egg": {
+        "food_name": "Hard-Boiled or Poached Egg",
+        "category": "Dairy & Eggs",
+        "serving_size": "1 large egg (50g)",
+        "calories": 78.0,
+        "protein": 6.3,
+        "carbs": 0.6,
+        "fat": 5.3,
+        "fiber": 0.0,
+        "sugar": 0.6,
+        "sodium_mg": 62.0,
+        "health_score": 86,
+        "dietary_attributes": ["vegetarian", "high-protein", "keto", "gluten-free"],
+        "micronutrients": {"choline": "147mg (27% DV)", "vitamin_b12": "0.6mcg", "selenium": "15.4mcg", "lutein_zeaxanthin": "252mcg"}
+    },
+    "broccoli": {
+        "food_name": "Steamed Broccoli",
+        "category": "Vegetables",
+        "serving_size": "1 cup chopped (91g)",
+        "calories": 31.0,
+        "protein": 2.6,
+        "carbs": 6.0,
+        "fat": 0.3,
+        "fiber": 2.4,
+        "sugar": 1.5,
+        "sodium_mg": 30.0,
+        "health_score": 98,
+        "dietary_attributes": ["vegan", "vegetarian", "gluten-free", "low-calorie", "superfood"],
+        "micronutrients": {"vitamin_c": "81.2mg (90% DV)", "vitamin_k": "92.5mcg (77% DV)", "folate": "57.3mcg"}
+    },
+    "spinach": {
+        "food_name": "Fresh Spinach Salad",
+        "category": "Vegetables",
+        "serving_size": "2 cups (60g)",
+        "calories": 14.0,
+        "protein": 1.7,
+        "carbs": 2.2,
+        "fat": 0.2,
+        "fiber": 1.3,
+        "sugar": 0.3,
+        "sodium_mg": 48.0,
+        "health_score": 99,
+        "dietary_attributes": ["vegan", "vegetarian", "gluten-free", "nutrient-dense"],
+        "micronutrients": {"vitamin_k": "290mcg (240% DV)", "vitamin_a": "2813 IU (56% DV)", "iron": "1.6mg (9% DV)", "folate": "116mcg"}
+    },
+    "brown rice": {
+        "food_name": "Cooked Brown Rice",
+        "category": "Grains & Cereals",
+        "serving_size": "1 cup cooked (195g)",
+        "calories": 218.0,
+        "protein": 4.5,
+        "carbs": 45.8,
+        "fat": 1.6,
+        "fiber": 3.5,
+        "sugar": 0.7,
+        "sodium_mg": 1.9,
+        "health_score": 85,
+        "dietary_attributes": ["vegan", "vegetarian", "gluten-free", "whole-grain"],
+        "micronutrients": {"manganese": "1.8mg (88% DV)", "magnesium": "84mg (21% DV)", "selenium": "19mcg"}
+    },
+    "quinoa": {
+        "food_name": "Cooked Quinoa",
+        "category": "Grains & Cereals",
+        "serving_size": "1 cup cooked (185g)",
+        "calories": 222.0,
+        "protein": 8.1,
+        "carbs": 39.4,
+        "fat": 3.6,
+        "fiber": 5.2,
+        "sugar": 1.6,
+        "sodium_mg": 13.0,
+        "health_score": 93,
+        "dietary_attributes": ["vegan", "vegetarian", "gluten-free", "complete-protein"],
+        "micronutrients": {"iron": "2.8mg (15% DV)", "magnesium": "118mg (30% DV)", "folate": "78mcg"}
+    },
+    "greek yogurt": {
+        "food_name": "Plain Greek Yogurt (Nonfat)",
+        "category": "Dairy",
+        "serving_size": "1 container (170g)",
+        "calories": 100.0,
+        "protein": 17.3,
+        "carbs": 6.1,
+        "fat": 0.7,
+        "fiber": 0.0,
+        "sugar": 6.1,
+        "sodium_mg": 61.0,
+        "health_score": 91,
+        "dietary_attributes": ["vegetarian", "high-protein", "probiotic", "gluten-free"],
+        "micronutrients": {"calcium": "187mg (19% DV)", "vitamin_b12": "1.3mcg (53% DV)", "zinc": "0.9mg"}
+    },
+    "pizza": {
+        "food_name": "Margherita or Cheese Pizza",
+        "category": "Prepared Meals",
+        "serving_size": "1 slice (107g)",
+        "calories": 285.0,
+        "protein": 12.2,
+        "carbs": 35.6,
+        "fat": 10.4,
+        "fiber": 2.5,
+        "sugar": 3.8,
+        "sodium_mg": 640.0,
+        "health_score": 58,
+        "dietary_attributes": ["vegetarian"],
+        "micronutrients": {"calcium": "210mg (21% DV)", "sodium": "640mg (28% DV)", "iron": "2.1mg"}
+    },
+    "burger": {
+        "food_name": "Classic Cheeseburger",
+        "category": "Prepared Meals",
+        "serving_size": "1 sandwich (150g)",
+        "calories": 410.0,
+        "protein": 22.0,
+        "carbs": 38.0,
+        "fat": 19.5,
+        "fiber": 2.0,
+        "sugar": 6.0,
+        "sodium_mg": 780.0,
+        "health_score": 52,
+        "dietary_attributes": [],
+        "micronutrients": {"iron": "3.5mg (19% DV)", "calcium": "180mg", "sodium": "780mg (34% DV)"}
+    },
+    "salad": {
+        "food_name": "Mediterranean Garden Salad",
+        "category": "Prepared Meals",
+        "serving_size": "1 bowl (200g)",
+        "calories": 145.0,
+        "protein": 4.5,
+        "carbs": 12.0,
+        "fat": 9.2,
+        "fiber": 4.8,
+        "sugar": 4.1,
+        "sodium_mg": 280.0,
+        "health_score": 94,
+        "dietary_attributes": ["vegetarian", "gluten-free", "heart-healthy", "high-fiber"],
+        "micronutrients": {"vitamin_a": "1800 IU", "vitamin_c": "45mg", "calcium": "95mg"}
+    },
+    "pasta": {
+        "food_name": "Pasta with Tomato Basil Sauce",
+        "category": "Prepared Meals",
+        "serving_size": "1 bowl (250g)",
+        "calories": 330.0,
+        "protein": 11.0,
+        "carbs": 62.0,
+        "fat": 4.5,
+        "fiber": 5.0,
+        "sugar": 8.0,
+        "sodium_mg": 460.0,
+        "health_score": 75,
+        "dietary_attributes": ["vegan", "vegetarian"],
+        "micronutrients": {"iron": "2.4mg (13% DV)", "potassium": "520mg", "vitamin_c": "12mg"}
+    }
+}
+
+
+def lookup_reference_food(query: str) -> Optional[Dict[str, Any]]:
+    """Lookup food in USDA reference database by partial name match."""
+    normalized = query.lower().strip()
+    for key, data in USDA_REFERENCE_DATABASE.items():
+        if key in normalized or normalized in key:
+            return data
+    return None
